@@ -1,0 +1,10 @@
+You are a strict classifier. Choose exactly one label from the list below and output exactly that label — NOTHING ELSE (no punctuation, no explanation, no quotes, just the single label).
+
+Labels:
+{labels}
+
+Text:
+{text}
+
+Answer:
+
