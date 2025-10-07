@@ -4,8 +4,8 @@ Simplified Ollama batch classifier for CSV data.
 
 Usage:
   export OLLAMA_ENDPOINT="http://localhost:11434/api/generate"
-  export MODEL="your-model-name"
-  python3 ollama_batch_classify.py --input enterprise_classification_dataset.csv --output results.csv
+  export MODEL="granite4:latest"
+  python3 ollama_batch_classify.py --input benchmark_data.csv --output results.csv
 """
 
 import os
@@ -17,23 +17,55 @@ import pandas as pd
 import difflib
 
 DEFAULT_PROMPT = (
-    "You are a strict classifier.\n"
-    "Choose exactly one label from the list below and output exactly that label and NOTHING ELSE\n"
-    "(no punctuation, no explanation, no quotes, just the single label).\n\n"
-    "Labels: {labels}\n\nText: {text}\n\nAnswer:"
+    "Classify this text into exactly ONE category.\n\n"
+    "Categories:\n"
+    "- Technical Support: bugs, errors, crashes, technical problems, system issues\n"
+    "- Billing: payments, invoices, refunds, subscriptions, charges, pricing\n"
+    "- Product Feedback: feature requests, suggestions, reviews, complaints, praise\n"
+    "- Account Management: passwords, login, user access, account settings, profile changes\n"
+    "- General Inquiry: general questions, policy questions, company info, availability, non-specific questions\n\n"
+    "Text: {text}\n\n"
+    "Return only the category name:"
 )
 
 SYNONYMS = {
-    "payment": "Payment Issue",
-    "billing": "Billing",
-    "bug": "Bug Report",
-    "error": "Bug Report",
-    "refund request": "Refund",
-    "nda": "Legal",
-    "security alert": "Security Alert",
-    "hr": "HR Request",
+    # Technical Support variations
+    "technical": "Technical Support",
+    "tech support": "Technical Support",
+    "bug": "Technical Support",
+    "error": "Technical Support",
+    "crash": "Technical Support",
+    "issue": "Technical Support",
+    "problem": "Technical Support",
+    
+    # Billing variations
+    "payment": "Billing",
+    "invoice": "Billing",
+    "refund": "Billing",
+    "subscription": "Billing",
+    "charge": "Billing",
+    "pricing": "Billing",
+    
+    # Product Feedback variations
+    "feedback": "Product Feedback",
+    "feature request": "Product Feedback",
+    "suggestion": "Product Feedback",
+    "review": "Product Feedback",
+    
+    # Account Management variations
+    "account": "Account Management",
+    "password": "Account Management",
+    "login": "Account Management",
+    "user": "Account Management",
+    "access": "Account Management",
+    
+    # General Inquiry variations
+    "inquiry": "General Inquiry",
+    "question": "General Inquiry",
+    "info": "General Inquiry",
+    "information": "General Inquiry",
+    "general": "General Inquiry",
 }
-
 
 def call_ollama(endpoint, model, prompt, timeout=60):
     """Call Ollama API and extract response text."""
