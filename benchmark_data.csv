@@ -49,3 +49,153 @@ id,text,category
 48,Is the service GDPR compliant?,General Inquiry
 49,Where can I find the API documentation?,General Inquiry
 50,Do you have a referral program?,General Inquiry
+51,App crashes when switching between profiles,Technical Support
+52,Notifications are not appearing on Android devices,Technical Support
+53,Email verification link expired before I could use it,Technical Support
+54,Unable to download backup files from the settings page,Technical Support
+55,The chat widget keeps disconnecting randomly,Technical Support
+56,Push notifications are delayed by several hours,Technical Support
+57,The report export button does nothing when clicked,Technical Support
+58,File upload stuck at 99% completion,Technical Support
+59,Integration with Google Drive fails with 403 error,Technical Support
+60,Audio playback not working during video meetings,Technical Support
+61,Was charged for a month after I canceled my plan,Billing
+62,Need to switch from monthly to yearly billing,Billing
+63,My account was debited twice for the same invoice,Billing
+64,Can I get a credit note for unused days?,Billing
+65,Payment failed but subscription still shows active,Billing
+66,Please send a detailed breakdown of my charges,Billing
+67,How can I apply a promo code to my plan?,Billing
+68,Need to change billing address on my invoice,Billing
+69,Do you provide tax exemption for nonprofits?,Billing
+70,Received invoice in wrong currency please correct,Billing
+71,The new layout looks much cleaner great job!,Product Feedback
+72,Please add drag-and-drop functionality to the dashboard,Product Feedback
+73,Would love a dark theme option for the web app,Product Feedback
+74,The new analytics view is very helpful,Product Feedback
+75,Search results don’t include archived items,Product Feedback
+76,Can you make the sidebar collapsible?,Product Feedback
+77,The mobile app UI feels cluttered,Product Feedback
+78,Add an undo option for deleted records,Product Feedback
+79,Filters should stay applied when I refresh the page,Product Feedback
+80,The new onboarding tutorial was very clear,Product Feedback
+81,How do I merge two accounts?,Account Management
+82,Can I assign multiple admins to one workspace?,Account Management
+83,Need to recover an account after employee left,Account Management
+84,How do I view login history for my account?,Account Management
+85,Need to reset MFA settings for all users,Account Management
+86,Can I change my organization’s domain name?,Account Management
+87,Want to temporarily deactivate my account,Account Management
+88,Add user permissions for read-only access,Account Management
+89,Need to link multiple teams under one organization,Account Management
+90,How do I reactivate a suspended user?,Account Management
+91,Do you have a mobile app for iOS?,General Inquiry
+92,Can I use the service offline?,General Inquiry
+93,Do you offer an API sandbox for developers?,General Inquiry
+94,What’s your uptime guarantee?,General Inquiry
+95,Is there a way to contact support by phone?,General Inquiry
+96,Do you provide custom onboarding for large teams?,General Inquiry
+97,Where can I find your privacy policy?,General Inquiry
+98,Is the platform available in multiple languages?,General Inquiry
+99,Do you offer on-premise deployment?,General Inquiry
+100,Can I test premium features before upgrading?,General Inquiry
+101,App logs me out automatically every few hours,Technical Support
+102,File attachments aren’t saving properly in forms,Technical Support
+103,PDF viewer inside the app won’t load certain files,Technical Support
+104,Camera access not working during profile setup,Technical Support
+105,The sync feature is stuck on “in progress”,Technical Support
+106,Error message says “Unknown host” when connecting to API,Technical Support
+107,Report filters reset after every reload,Technical Support
+108,App keeps crashing after latest update,Technical Support
+109,Getting duplicate notifications for the same event,Technical Support
+110,Unable to import contacts from CSV file,Technical Support
+111,Need to add another payment method to my account,Billing
+112,Why was sales tax added to my invoice?,Billing
+113,I didn’t receive a payment confirmation email,Billing
+114,Please cancel auto-renewal before next billing cycle,Billing
+115,Can I pay via wire transfer?,Billing
+116,Requesting refund due to accidental upgrade,Billing
+117,My invoice shows the wrong company name,Billing
+118,How do I download past receipts?,Billing
+119,Received invoice but payment was already made,Billing
+120,Please update VAT ID on my billing profile,Billing
+121,The new dashboard colors are too bright,Product Feedback
+122,Please add export to Excel option in reports,Product Feedback
+123,Love the recent performance improvements!,Product Feedback
+124,Search bar should be available on every page,Product Feedback
+125,Could you make the text larger for accessibility?,Product Feedback
+126,Would like to customize columns in data tables,Product Feedback
+127,Add ability to tag or label items,Product Feedback
+128,Tooltips disappear too quickly,Product Feedback
+129,The notifications panel should show timestamps,Product Feedback
+130,App icon looks great after the redesign!,Product Feedback
+131,Can I combine multiple accounts into one?,Account Management
+132,Need to update my personal profile picture,Account Management
+133,How do I verify my email address?,Account Management
+134,Want to restrict login access by IP address,Account Management
+135,Please resend account activation link,Account Management
+136,Need to downgrade to a smaller team plan,Account Management
+137,How to view account usage statistics?,Account Management
+138,Transfer team ownership to another member,Account Management
+139,Set password expiration policy for users,Account Management
+140,How do I remove inactive members?,Account Management
+141,What industries do you typically serve?,General Inquiry
+142,Do you have case studies or success stories?,General Inquiry
+143,Is there a free trial for new customers?,General Inquiry
+144,How secure is my data on your servers?,General Inquiry
+145,Do you offer discounts for educational institutions?,General Inquiry
+146,What are your support response times?,General Inquiry
+147,Where can I find your product roadmap?,General Inquiry
+148,Is your service available globally?,General Inquiry
+149,Do you offer API rate limits for developers?,General Inquiry
+150,Can I schedule a product demo?,General Inquiry
+151,App won’t open after I updated my operating system,Technical Support
+152,Receiving timeout errors when fetching data,Technical Support
+153,Unable to print invoices from the portal,Technical Support
+154,The app doesn’t recognize my fingerprint login,Technical Support
+155,Notifications sound plays but no message appears,Technical Support
+156,File upload corrupts Excel files occasionally,Technical Support
+157,Download link for reports expires too soon,Technical Support
+158,Screen flickers when scrolling through dashboard,Technical Support
+159,Integration with Outlook calendar fails to sync,Technical Support
+160,The map view isn’t showing location markers,Technical Support
+161,Can I split payment between two cards?,Billing
+162,My refund hasn’t shown up after 7 business days,Billing
+163,Please correct billing cycle start date,Billing
+164,Do you send reminders before renewal?,Billing
+165,Payment confirmation email went to the wrong address,Billing
+166,Need to switch billing ownership to another user,Billing
+167,My discount code isn’t being applied,Billing
+168,Charge appeared twice on my credit card,Billing
+169,Please extend my payment due date,Billing
+170,How do I view my billing history?,Billing
+171,The interface feels smoother after the update,Product Feedback
+172,Please make graphs interactive in analytics view,Product Feedback
+173,The export button should remember last used settings,Product Feedback
+174,Would like an option to schedule automated reports,Product Feedback
+175,Can you add dark mode for desktop?,Product Feedback
+176,Drag-and-drop doesn’t work in Firefox,Product Feedback
+177,Please allow resizing of dashboard widgets,Product Feedback
+178,Animations feel too slow between screens,Product Feedback
+179,Love the simplicity of the new navigation bar,Product Feedback
+180,Add an autosave option for drafts,Product Feedback
+181,Can I change the primary admin on my account?,Account Management
+182,Need to recover deleted user profile,Account Management
+183,How to enable login alerts for admins?,Account Management
+184,Want to update organization logo,Account Management
+185,Can I hide my personal info from team members?,Account Management
+186,Need to reassign seats to new employees,Account Management
+187,How do I check user activity logs?,Account Management
+188,Requesting to merge duplicate user accounts,Account Management
+189,Need to reset all passwords after security update,Account Management
+190,Change team roles from member to admin,Account Management
+191,Do you offer 24/7 customer support?,General Inquiry
+192,Where can I download the mobile version?,General Inquiry
+193,Is there a public API available?,General Inquiry
+194,Do you partner with other SaaS providers?,General Inquiry
+195,How often do you release updates?,General Inquiry
+196,Can I schedule a call with your sales team?,General Inquiry
+197,Do you provide product documentation in Spanish?,General Inquiry
+198,Where are your servers located?,General Inquiry
+199,Do you have a comparison chart of all plans?,General Inquiry
+200,Can I migrate data from another platform?,General Inquiry

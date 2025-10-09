@@ -20,31 +20,33 @@ DEFAULT_PROMPT = (
     "Classify this text into exactly ONE category.\n\n"
     "Categories:\n"
     "- Technical Support: bugs, errors, crashes, technical problems, system issues, "
-    "connectivity problems, software malfunctions, error messages\n"
-    "  Note: Things that are BROKEN or NOT FUNCTIONING. If something is working but slow, "
-    "it's Product Feedback, not Technical Support.\n\n"
+    "connectivity problems, software malfunctions, error messages, things NOT WORKING as expected\n"
+    "  Key: Something is BROKEN, FAILING, or producing ERRORS. Example: 'drag-and-drop doesn't work'\n\n"
     
-    "- Billing: payments, invoices, refunds, subscriptions, charges, pricing, "
-    "payment methods, plan upgrades/downgrades, billing errors, payment processing issues\n"
-    "  Note: Anything involving MONEY, PLANS, or SUBSCRIPTIONS (including changing plans)\n\n"
+    "- Billing: payments, invoices, refunds, subscriptions, charges, pricing, payment methods, "
+    "plan changes (upgrades/downgrades), billing profile updates (VAT, tax info), promo codes, "
+    "receipts, renewal reminders, billing ownership transfers\n"
+    "  Key: Anything about MONEY, PAYMENT PLANS, SUBSCRIPTIONS, or BILLING INFORMATION. "
+    "Even if it mentions 'account', if it's about billing info or plan changes, it's Billing.\n\n"
     
     "- Product Feedback: feature requests, suggestions, reviews, praise, complaints, "
-    "user experience comments, UI/UX feedback, performance observations (like 'slow' or 'confusing'), "
-    "enhancement ideas, customer service experiences\n"
-    "  Note: Opinions, experiences, and suggestions about the product or service. "
-    "If something works but could be better, it's feedback.\n\n"
+    "user experience comments, UI/UX observations, performance issues (slow but working), "
+    "enhancement ideas, customer service experiences, behavior preferences (e.g., 'should stay applied')\n"
+    "  Key: OPINIONS and SUGGESTIONS about how the product works or could work better. "
+    "If something works but the user wants it to behave differently, it's feedback.\n\n"
     
     "- Account Management: passwords, login credentials, user access permissions, "
-    "account settings, profile changes, user provisioning/deprovisioning, "
-    "account ownership, team member management\n"
-    "  Note: USER IDENTITY and ACCESS CONTROL changes. If 2FA setup itself (e.g., SSO configuration), "
-    "it's Account Management. If 2FA codes aren't arriving, it's Technical Support.\n\n"
+    "account settings (non-billing), profile changes, user provisioning/deprovisioning, "
+    "account ownership (non-billing), team member management, viewing account data (usage stats, activity logs)\n"
+    "  Key: USER IDENTITY, ACCESS CONTROL, and viewing ACCOUNT-SPECIFIC DATA. "
+    "NOT about billing info or plan changes.\n\n"
     
-    "- General Inquiry: policy questions, company information, business hours, "
-    "locations, compliance questions, finding documentation or resources, plan comparisons, "
-    "availability of services, programs (discounts, referrals, training), employment inquiries\n"
-    "  Note: INFORMATIONAL 'where/when/what/how to find' questions that don't require "
-    "action on the account or involve a problem.\n\n"
+    "- General Inquiry: policy questions, company information, availability questions "
+    "('Do you offer...?', 'Can I...?', 'Is there...?'), service capabilities, deployment options, "
+    "security questions, finding resources/downloads, API availability, data migration questions, "
+    "testing/trial options, onboarding services, compliance questions, documentation locations\n"
+    "  Key: INFORMATIONAL questions about what EXISTS, what's AVAILABLE, or CAPABILITIES. "
+    "Questions starting with 'Do you', 'Can I', 'Is there', 'Where can I', 'How secure' are usually General Inquiry.\n\n"
     
     "Text: {text}\n\n"
     "Return only the category name:"
@@ -68,6 +70,7 @@ SYNONYMS = {
     "problems": "Technical Support",
     "malfunction": "Technical Support",
     "not working": "Technical Support",
+    "doesn't work": "Technical Support",
     "broken": "Technical Support",
     "fails": "Technical Support",
     "failure": "Technical Support",
@@ -102,13 +105,25 @@ SYNONYMS = {
     "payment method": "Billing",
     "upgrade plan": "Billing",
     "upgrade to": "Billing",
+    "downgrade": "Billing",
     "downgrade plan": "Billing",
+    "downgrade to": "Billing",
     "cancel subscription": "Billing",
     "receipt": "Billing",
+    "receipts": "Billing",
     "proration": "Billing",
     "enterprise plan": "Billing",
     "pro plan": "Billing",
+    "team plan": "Billing",
     "plan": "Billing",
+    "promo code": "Billing",
+    "tax exemption": "Billing",
+    "vat": "Billing",
+    "vat id": "Billing",
+    "billing profile": "Billing",
+    "renewal": "Billing",
+    "renewal reminders": "Billing",
+    "billing ownership": "Billing",
     
     # Product Feedback variations
     "feedback": "Product Feedback",
@@ -138,6 +153,9 @@ SYNONYMS = {
     "appreciate": "Product Feedback",
     "customer service": "Product Feedback",
     "experience": "Product Feedback",
+    "should": "Product Feedback",
+    "should stay": "Product Feedback",
+    "expires too soon": "Product Feedback",
     
     # Account Management variations
     "account management": "Account Management",
@@ -164,6 +182,12 @@ SYNONYMS = {
     "setup single sign-on": "Account Management",
     "enable two-factor": "Account Management",
     "enable 2fa": "Account Management",
+    "usage statistics": "Account Management",
+    "account usage": "Account Management",
+    "activity logs": "Account Management",
+    "user activity": "Account Management",
+    "view account": "Account Management",
+    "check user": "Account Management",
     
     # General Inquiry variations
     "general inquiry": "General Inquiry",
@@ -186,8 +210,8 @@ SYNONYMS = {
     "api documentation": "General Inquiry",
     "where can i find": "General Inquiry",
     "where to find": "General Inquiry",
+    "where can i download": "General Inquiry",
     "plan comparison": "General Inquiry",
-    "plans": "General Inquiry",
     "difference between": "General Inquiry",
     "discount": "General Inquiry",
     "student discount": "General Inquiry",
@@ -199,7 +223,26 @@ SYNONYMS = {
     "careers": "General Inquiry",
     "available": "General Inquiry",
     "availability": "General Inquiry",
+    "do you offer": "General Inquiry",
+    "can i use": "General Inquiry",
+    "can i test": "General Inquiry",
+    "can i migrate": "General Inquiry",
+    "is there": "General Inquiry",
+    "is there a": "General Inquiry",
+    "do you provide": "General Inquiry",
+    "do you send": "General Inquiry",
+    "how secure": "General Inquiry",
+    "api sandbox": "General Inquiry",
+    "offline": "General Inquiry",
+    "onboarding": "General Inquiry",
+    "on-premise": "General Inquiry",
+    "deployment": "General Inquiry",
+    "premium features": "General Inquiry",
+    "mobile version": "General Inquiry",
+    "public api": "General Inquiry",
+    "migrate data": "General Inquiry",
 }
+
 
 def call_ollama(endpoint, model, prompt, timeout=60):
     """Call Ollama API and extract response text."""
