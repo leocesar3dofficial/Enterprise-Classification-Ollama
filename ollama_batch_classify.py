@@ -4,7 +4,7 @@ Simplified Ollama batch classifier for CSV data.
 
 Usage:
   export OLLAMA_ENDPOINT="http://localhost:11434/api/generate"
-  export MODEL="granite4:latest"
+  export MODEL="granite4"
   python3 ollama_batch_classify.py --input benchmark_data.csv --output results.csv
 """
 
@@ -19,52 +19,186 @@ import difflib
 DEFAULT_PROMPT = (
     "Classify this text into exactly ONE category.\n\n"
     "Categories:\n"
-    "- Technical Support: bugs, errors, crashes, technical problems, system issues\n"
-    "- Billing: payments, invoices, refunds, subscriptions, charges, pricing\n"
-    "- Product Feedback: feature requests, suggestions, reviews, complaints, praise\n"
-    "- Account Management: passwords, login, user access, account settings, profile changes\n"
-    "- General Inquiry: general questions, policy questions, company info, availability, non-specific questions\n\n"
+    "- Technical Support: bugs, errors, crashes, technical problems, system issues, "
+    "connectivity problems, software malfunctions, error messages\n"
+    "  Note: Things that are BROKEN or NOT FUNCTIONING. If something is working but slow, "
+    "it's Product Feedback, not Technical Support.\n\n"
+    
+    "- Billing: payments, invoices, refunds, subscriptions, charges, pricing, "
+    "payment methods, plan upgrades/downgrades, billing errors, payment processing issues\n"
+    "  Note: Anything involving MONEY, PLANS, or SUBSCRIPTIONS (including changing plans)\n\n"
+    
+    "- Product Feedback: feature requests, suggestions, reviews, praise, complaints, "
+    "user experience comments, UI/UX feedback, performance observations (like 'slow' or 'confusing'), "
+    "enhancement ideas, customer service experiences\n"
+    "  Note: Opinions, experiences, and suggestions about the product or service. "
+    "If something works but could be better, it's feedback.\n\n"
+    
+    "- Account Management: passwords, login credentials, user access permissions, "
+    "account settings, profile changes, user provisioning/deprovisioning, "
+    "account ownership, team member management\n"
+    "  Note: USER IDENTITY and ACCESS CONTROL changes. If 2FA setup itself (e.g., SSO configuration), "
+    "it's Account Management. If 2FA codes aren't arriving, it's Technical Support.\n\n"
+    
+    "- General Inquiry: policy questions, company information, business hours, "
+    "locations, compliance questions, finding documentation or resources, plan comparisons, "
+    "availability of services, programs (discounts, referrals, training), employment inquiries\n"
+    "  Note: INFORMATIONAL 'where/when/what/how to find' questions that don't require "
+    "action on the account or involve a problem.\n\n"
+    
     "Text: {text}\n\n"
     "Return only the category name:"
 )
 
 SYNONYMS = {
     # Technical Support variations
-    "technical": "Technical Support",
+    "technical support": "Technical Support",
     "tech support": "Technical Support",
+    "technical": "Technical Support",
+    "tech": "Technical Support",
     "bug": "Technical Support",
+    "bugs": "Technical Support",
     "error": "Technical Support",
+    "errors": "Technical Support",
     "crash": "Technical Support",
+    "crashes": "Technical Support",
     "issue": "Technical Support",
+    "issues": "Technical Support",
     "problem": "Technical Support",
+    "problems": "Technical Support",
+    "malfunction": "Technical Support",
+    "not working": "Technical Support",
+    "broken": "Technical Support",
+    "fails": "Technical Support",
+    "failure": "Technical Support",
+    "timeout": "Technical Support",
+    "connection": "Technical Support",
+    "connectivity": "Technical Support",
+    "api error": "Technical Support",
+    "system error": "Technical Support",
+    "not arriving": "Technical Support",
+    "won't load": "Technical Support",
+    "can't connect": "Technical Support",
+    "unable to": "Technical Support",
     
     # Billing variations
+    "billing": "Billing",
     "payment": "Billing",
+    "payments": "Billing",
     "invoice": "Billing",
+    "invoices": "Billing",
     "refund": "Billing",
+    "refunds": "Billing",
     "subscription": "Billing",
+    "subscriptions": "Billing",
     "charge": "Billing",
+    "charges": "Billing",
+    "charged": "Billing",
     "pricing": "Billing",
+    "price": "Billing",
+    "cost": "Billing",
+    "costs": "Billing",
+    "credit card": "Billing",
+    "payment method": "Billing",
+    "upgrade plan": "Billing",
+    "upgrade to": "Billing",
+    "downgrade plan": "Billing",
+    "cancel subscription": "Billing",
+    "receipt": "Billing",
+    "proration": "Billing",
+    "enterprise plan": "Billing",
+    "pro plan": "Billing",
+    "plan": "Billing",
     
     # Product Feedback variations
     "feedback": "Product Feedback",
     "feature request": "Product Feedback",
+    "feature": "Product Feedback",
     "suggestion": "Product Feedback",
+    "suggestions": "Product Feedback",
     "review": "Product Feedback",
+    "complaint": "Product Feedback",
+    "complaints": "Product Feedback",
+    "praise": "Product Feedback",
+    "love": "Product Feedback",
+    "hate": "Product Feedback",
+    "improvement": "Product Feedback",
+    "enhance": "Product Feedback",
+    "enhancement": "Product Feedback",
+    "ux": "Product Feedback",
+    "ui": "Product Feedback",
+    "user interface": "Product Feedback",
+    "user experience": "Product Feedback",
+    "slow": "Product Feedback",
+    "slowly": "Product Feedback",
+    "loads slowly": "Product Feedback",
+    "confusing": "Product Feedback",
+    "excellent": "Product Feedback",
+    "great": "Product Feedback",
+    "appreciate": "Product Feedback",
+    "customer service": "Product Feedback",
+    "experience": "Product Feedback",
     
     # Account Management variations
+    "account management": "Account Management",
     "account": "Account Management",
     "password": "Account Management",
+    "passwords": "Account Management",
+    "reset password": "Account Management",
     "login": "Account Management",
-    "user": "Account Management",
+    "log in": "Account Management",
+    "username": "Account Management",
+    "user access": "Account Management",
     "access": "Account Management",
+    "permissions": "Account Management",
+    "add user": "Account Management",
+    "remove user": "Account Management",
+    "delete account": "Account Management",
+    "change email": "Account Management",
+    "profile": "Account Management",
+    "sso": "Account Management",
+    "single sign-on": "Account Management",
+    "ownership": "Account Management",
+    "transfer account": "Account Management",
+    "setup sso": "Account Management",
+    "setup single sign-on": "Account Management",
+    "enable two-factor": "Account Management",
+    "enable 2fa": "Account Management",
     
     # General Inquiry variations
+    "general inquiry": "General Inquiry",
     "inquiry": "General Inquiry",
     "question": "General Inquiry",
+    "questions": "General Inquiry",
     "info": "General Inquiry",
     "information": "General Inquiry",
     "general": "General Inquiry",
+    "business hours": "General Inquiry",
+    "office": "General Inquiry",
+    "location": "General Inquiry",
+    "policy": "General Inquiry",
+    "policies": "General Inquiry",
+    "compliance": "General Inquiry",
+    "gdpr": "General Inquiry",
+    "documentation": "General Inquiry",
+    "docs": "General Inquiry",
+    "api docs": "General Inquiry",
+    "api documentation": "General Inquiry",
+    "where can i find": "General Inquiry",
+    "where to find": "General Inquiry",
+    "plan comparison": "General Inquiry",
+    "plans": "General Inquiry",
+    "difference between": "General Inquiry",
+    "discount": "General Inquiry",
+    "student discount": "General Inquiry",
+    "referral": "General Inquiry",
+    "training": "General Inquiry",
+    "webinar": "General Inquiry",
+    "hiring": "General Inquiry",
+    "jobs": "General Inquiry",
+    "careers": "General Inquiry",
+    "available": "General Inquiry",
+    "availability": "General Inquiry",
 }
 
 def call_ollama(endpoint, model, prompt, timeout=60):
@@ -180,31 +314,31 @@ def main():
     results = []
     correct = 0
     
-    for idx, row in df.iterrows():
-        prompt = DEFAULT_PROMPT.format(labels=", ".join(labels), text=row["text"])
+    for idx, row in enumerate(df.itertuples(index=False), start=1):
+        prompt = DEFAULT_PROMPT.format(labels=", ".join(labels), text=row.text)
         
         try:
             pred_text, raw = call_ollama(endpoint, model, prompt)
             pred_label = match_label(pred_text, labels, SYNONYMS)
-            is_correct = 1 if pred_label.lower() == row["category"].lower() else 0
+            is_correct = 1 if str(pred_label).lower() == str(row.category).lower() else 0
             correct += is_correct
             
-            print(f"[{idx+1}/{len(df)}] id={row['id']} gold='{row['category']}' pred='{pred_label}' ✓={is_correct}")
+            print(f"[{idx}/{len(df)}] id={row.id} gold='{row.category}' pred='{pred_label}' ✓={is_correct}")
             
             results.append({
-                "id": row["id"],
-                "text": row["text"],
-                "category": row["category"],
+                "id": row.id,
+                "text": row.text,
+                "category": row.category,
                 "prediction": pred_label,
                 "correct": is_correct,
                 "raw_response": raw
             })
         except Exception as e:
-            print(f"[{idx+1}/{len(df)}] ERROR: {e}")
+            print(f"[{idx}/{len(df)}] ERROR: {e}")
             results.append({
-                "id": row["id"],
-                "text": row["text"],
-                "category": row["category"],
+                "id": row.id,
+                "text": row.text,
+                "category": row.category,
                 "prediction": f"ERROR: {e}",
                 "correct": 0,
                 "raw_response": str(e)

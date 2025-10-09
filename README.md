@@ -25,7 +25,7 @@ This project provides tools for batch classification of text data using Ollama m
 1. Start your Ollama server and ensure it's accessible at the default endpoint:
 ```bash
 export OLLAMA_ENDPOINT="http://localhost:11434/api/generate"
-export MODEL="granite4:latest"  # or your preferred model
+export MODEL="granite4"  # or your preferred model
 ```
 
 2. Run batch classification:
