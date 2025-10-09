@@ -42,7 +42,7 @@ id,text,category
 41,What are your business hours?,General Inquiry
 42,Do you have an office in Europe?,General Inquiry
 43,Is there a student discount available?,General Inquiry
-44,What's the difference between Pro and Enterprise plans?,General Inquiry
+44,What's the difference between Pro and Enterprise plans?,Billing
 45,Do you offer training webinars?,General Inquiry
 46,Are you hiring software engineers?,General Inquiry
 47,What's your data retention policy?,General Inquiry
@@ -73,7 +73,7 @@ id,text,category
 72,Please add drag-and-drop functionality to the dashboard,Product Feedback
 73,Would love a dark theme option for the web app,Product Feedback
 74,The new analytics view is very helpful,Product Feedback
-75,Search results don’t include archived items,Product Feedback
+75,Search results don’t include archived items,Technical Support
 76,Can you make the sidebar collapsible?,Product Feedback
 77,The mobile app UI feels cluttered,Product Feedback
 78,Add an undo option for deleted records,Product Feedback
@@ -134,7 +134,7 @@ id,text,category
 133,How do I verify my email address?,Account Management
 134,Want to restrict login access by IP address,Account Management
 135,Please resend account activation link,Account Management
-136,Need to downgrade to a smaller team plan,Account Management
+136,Need to downgrade to a smaller team plan,Billing
 137,How to view account usage statistics?,Account Management
 138,Transfer team ownership to another member,Account Management
 139,Set password expiration policy for users,Account Management
@@ -174,7 +174,7 @@ id,text,category
 173,The export button should remember last used settings,Product Feedback
 174,Would like an option to schedule automated reports,Product Feedback
 175,Can you add dark mode for desktop?,Product Feedback
-176,Drag-and-drop doesn’t work in Firefox,Product Feedback
+176,Drag-and-drop doesn’t work in Firefox,Technical Support
 177,Please allow resizing of dashboard widgets,Product Feedback
 178,Animations feel too slow between screens,Product Feedback
 179,Love the simplicity of the new navigation bar,Product Feedback

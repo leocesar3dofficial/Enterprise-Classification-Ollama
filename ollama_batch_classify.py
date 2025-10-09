@@ -41,12 +41,11 @@ DEFAULT_PROMPT = (
     "  Key: USER IDENTITY, ACCESS CONTROL, and viewing ACCOUNT-SPECIFIC DATA. "
     "NOT about billing info or plan changes.\n\n"
     
-    "- General Inquiry: policy questions, company information, availability questions "
-    "('Do you offer...?', 'Can I...?', 'Is there...?'), service capabilities, deployment options, "
+    "- General Inquiry: policy questions, company information, availability questions, "
+    "service capabilities, deployment options, "
     "security questions, finding resources/downloads, API availability, data migration questions, "
     "testing/trial options, onboarding services, compliance questions, documentation locations\n"
-    "  Key: INFORMATIONAL questions about what EXISTS, what's AVAILABLE, or CAPABILITIES. "
-    "Questions starting with 'Do you', 'Can I', 'Is there', 'Where can I', 'How secure' are usually General Inquiry.\n\n"
+    "  Key: INFORMATIONAL questions about what EXISTS, what's AVAILABLE, or CAPABILITIES.\n\n"
     
     "Text: {text}\n\n"
     "Return only the category name:"
